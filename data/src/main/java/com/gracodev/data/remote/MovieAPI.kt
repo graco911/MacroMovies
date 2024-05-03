@@ -8,10 +8,10 @@ import retrofit2.http.Query
 interface MovieAPI {
 
     /**
-     * Define endpoint to get a pokemon list using pagination
+     * Define endpoint to get a movie list using pagination
      */
     @GET("movie/now_playing")
-    fun getNowPlayingMovies(
+    suspend fun getNowPlayingMovies(
         @Query("page") page: Int
     ): Response<NowPlayingResponse>
 }

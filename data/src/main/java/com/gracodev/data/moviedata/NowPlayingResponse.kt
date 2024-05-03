@@ -2,6 +2,7 @@ package com.gracodev.data.moviedata
 
 import android.os.Parcelable
 import androidx.room.Entity
+import androidx.room.ForeignKey
 import androidx.room.PrimaryKey
 import kotlinx.parcelize.Parcelize
 
@@ -23,12 +24,10 @@ data class Dates(
 @Parcelize
 @Entity(tableName = "movies_list")
 data class Movie(
-    @PrimaryKey(autoGenerate = true)
-    val movieId: Long,
+    @PrimaryKey(autoGenerate = true) val movieId: Long,
     val id: Int,
     val adult: Boolean,
     val backdrop_path: String,
-    val genre_ids: Int,
     val original_language: String,
     val original_title: String,
     val overview: String,
@@ -40,3 +39,30 @@ data class Movie(
     val vote_average: Double,
     val vote_count: Int
 ) : Parcelable
+
+@Entity(tableName = "genres")
+data class Genre(
+    @PrimaryKey val id: Int,
+    val name: String
+)
+
+@Entity(
+    tableName = "movie_genre_join",
+    primaryKeys = ["movieId", "genreId"],
+    foreignKeys = [
+        ForeignKey(
+            entity = Movie::class,
+            parentColumns = ["movieId"],
+            childColumns = ["movieId"]
+        ),
+        ForeignKey(
+            entity = Genre::class,
+            parentColumns = ["id"],
+            childColumns = ["genreId"]
+        )
+    ]
+)
+data class MovieGenreJoin(
+    val movieId: Long,
+    val genreId: Int
+)

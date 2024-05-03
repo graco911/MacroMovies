@@ -38,7 +38,7 @@ fun createAppModules(): Module = module {
         createWebService<MovieAPI>(
             okHttpClient = createHttpClient(get()),
             factory = CoroutineCallAdapterFactory(),
-            baseUrl = ""
+            baseUrl = "https://api.themoviedb.org/3/"
         )
     }
 
@@ -72,7 +72,7 @@ fun createAppModules(): Module = module {
 
     factory { MovieViewModelFactory(get(), get()) }
 
-    viewModel{MovieViewModel(get(), get())}
+    viewModel { MovieViewModel(get(), get()) }
 }
 
 fun createHttpClient(context: Context): OkHttpClient {
