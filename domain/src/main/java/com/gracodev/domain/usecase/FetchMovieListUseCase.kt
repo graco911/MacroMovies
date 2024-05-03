@@ -8,7 +8,7 @@ import kotlinx.coroutines.withContext
 
 class FetchMovieListUseCase(
     private val movieRepository: MovieRepository,
-    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val defaultDispatcher: CoroutineDispatcher
 ) {
     suspend operator fun invoke(page: Int) = withContext(defaultDispatcher) {
         movieRepository.fetchNowPlayingMoviesList(page)
