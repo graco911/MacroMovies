@@ -7,6 +7,9 @@ import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import com.gracodev.data.moviedata.Movie
+import com.gracodev.macromovies.adapters.FavoritesAdapter
+import com.gracodev.macromovies.adapters.MoviesAdapter
 import com.gracodev.macromovies.databinding.FragmentMovieListBinding
 import com.gracodev.macromovies.states.UIStates
 import com.gracodev.macromovies.viewmodels.MovieViewModel
@@ -22,6 +25,23 @@ class MovieListFragment : BaseFragment() {
 
     private val binding: FragmentMovieListBinding by lazy {
         FragmentMovieListBinding.inflate(layoutInflater)
+    }
+
+    private val favoriteListAdapter: FavoritesAdapter by lazy {
+        FavoritesAdapter() {
+            handleTap(it)
+        }
+    }
+
+    private val moviesListAdapter: MoviesAdapter by lazy {
+        MoviesAdapter() {
+            handleTap(it)
+        }
+    }
+
+    private fun handleTap(it: Movie) {
+
+
     }
 
     override fun onCreateView(
@@ -61,9 +81,8 @@ class MovieListFragment : BaseFragment() {
                         }
 
                         is UIStates.Success -> {
-                            if (uiState.value!!.size > 0) {
-
-                            }
+                            uiState.value?.let { favoriteListAdapter.submitAll(it.toMutableList()) }
+                            uiState.value?.let { moviesListAdapter.submitAll(it.toMutableList()) }
                         }
                     }
                 }
@@ -72,6 +91,9 @@ class MovieListFragment : BaseFragment() {
     }
 
     private fun setUpRecyclerView() {
-
+        binding.apply {
+            rvFavorites.adapter = favoriteListAdapter
+            rvMovies.adapter = moviesListAdapter
+        }
     }
 }

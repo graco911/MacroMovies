@@ -3,9 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mobile_navigation"
-    app:startDestination="@id/movieListFragment">
+    app:startDestination="@id/nav_movies">
     <fragment
-        android:id="@+id/movieListFragment"
+        android:id="@+id/nav_movies"
         android:name="com.gracodev.macromovies.fragments.MovieListFragment"
         android:label="fragment_movie_list"
         tools:layout="@layout/fragment_movie_list" />
