@@ -17,5 +17,9 @@ class MovieViewHolder(private val binding: MovieItemBinding) :
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(imageViewPoster)
         }
+
+        binding.root.setOnClickListener {
+            click(movie)
+        }
     }
 }

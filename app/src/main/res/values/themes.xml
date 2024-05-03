@@ -22,4 +22,17 @@
     <style name="Theme.MacroMovies.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
     <style name="Theme.MacroMovies.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <!-- En res/values/styles.xml -->
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <!-- Otros atributos de estilo aquí -->
+
+        <!-- Establecer el color de fondo transparente para el Toolbar -->
+        <item name="android:toolbarStyle">@style/TransparentToolbar</item>
+    </style>
+
+    <!-- Estilo personalizado para el Toolbar transparente -->
+    <style name="TransparentToolbar" parent="Widget.MaterialComponents.Toolbar">
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 </resources>

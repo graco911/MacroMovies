@@ -18,8 +18,7 @@ class FavoriteViewHolder(private val binding: FavoriteItemBinding) :
                 .placeholder(R.drawable.ic_launcher_background)
                 .into(imageViewPoster)
 
-            textTitle.text = movie.title
-            textTitle.limitTextLength()
+            textTitle.text = movie.title.limitTextLength(15)
             textYear.text = movie.release_date
             ratingMovie.rating = (movie.vote_average * .5f).toFloat()
         }

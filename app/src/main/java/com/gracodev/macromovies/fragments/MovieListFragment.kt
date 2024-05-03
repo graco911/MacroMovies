@@ -7,8 +7,10 @@ import android.view.ViewGroup
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.lifecycle.repeatOnLifecycle
+import androidx.navigation.fragment.findNavController
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
 import com.gracodev.data.moviedata.Movie
+import com.gracodev.macromovies.R
 import com.gracodev.macromovies.adapters.FavoritesAdapter
 import com.gracodev.macromovies.adapters.MoviesAdapter
 import com.gracodev.macromovies.adapters.MoviesPagingAdapter
@@ -52,9 +54,15 @@ class MovieListFragment : BaseFragment() {
         binding.swipeRefreshLayout
     }
 
-    private fun handleTap(it: Movie) {
+    private fun handleTap(movie: Movie) {
+        val bundle = Bundle().apply {
+            putParcelable("MOVIE_DATA", movie)
+        }
 
-
+        findNavController().navigate(
+            R.id.action_nav_movies_to_movieDetailFragment,
+            bundle
+        )
     }
 
     override fun onCreateView(
@@ -67,12 +75,14 @@ class MovieListFragment : BaseFragment() {
         setUpRecyclerView()
         setUpObsevableUIState()
         setUpSwipeRefreshLayout()
-        viewModel.fetchMoviePagingData()
+        //viewModel.fetchMoviePagingData()
+        viewModel.fetchMovieList()
     }
 
     private fun setUpSwipeRefreshLayout() {
         swipeRefreshLayout.setOnRefreshListener {
-            viewModel.fetchMoviePagingData()
+            //viewModel.fetchMoviePagingData()
+            viewModel.fetchMovieList()
         }
     }
 
@@ -119,7 +129,10 @@ class MovieListFragment : BaseFragment() {
     private fun setUpRecyclerView() {
         binding.apply {
             //rvFavorites.adapter = moviesPagingAdapter
-            rvMovies.adapter = moviesPagingAdapter
+            //rvMovies.adapter = moviesPagingAdapter
+
+            rvFavorites.adapter = favoriteListAdapter
+            rvMovies.adapter = moviesListAdapter
         }
     }
 }
