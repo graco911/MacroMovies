@@ -1,11 +1,14 @@
 package com.gracodev.macromovies.viewmodels
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.viewModelScope
 import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.PagingSource
 import androidx.paging.cachedIn
+import androidx.paging.liveData
 import com.gracodev.data.moviedata.Movie
 import com.gracodev.domain.usecase.FetchMovieListUseCase
 import com.gracodev.domain.usecase.FetchMoviePagingListUseCase
@@ -34,7 +37,7 @@ class MovieViewModel(
     val pagingData: StateFlow<PagingData<Movie>> = _pagingSource
         .flatMapLatest { pagingSource ->
             pagingSource?.let {
-                Pager(config = PagingConfig(pageSize = 25)) {
+                Pager(config = PagingConfig(pageSize = 0)) {
                     it
                 }.flow.cachedIn(viewModelScope)
             } ?: flow { emit(PagingData.empty()) }
@@ -53,7 +56,7 @@ class MovieViewModel(
         }
     }
 
-    fun fetchPaginMovieList() {
+    fun fetchMoviePagingData() {
         viewModelScope.launch {
             _loadingState.value = true
             _pagingSource.value = fetchMoviePagingListUseCase()

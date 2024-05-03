@@ -12,6 +12,6 @@ interface MovieAPI {
      */
     @GET("movie/now_playing")
     suspend fun getNowPlayingMovies(
-        @Query("page") page: Int
+        @Query("page") page: Int = 1
     ): Response<NowPlayingResponse>
 }

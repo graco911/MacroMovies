@@ -10,17 +10,16 @@ class MoviePagingRepository(private val movieAPIDataSource: MovieAPIDataSource) 
     suspend fun fechNowPlayingMoviewListFromAPI(): PagingSource<Int, Movie> {
         return object : PagingSource<Int, Movie>() {
             override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
-
-                val offset = params.key ?: 0
-                val limit = params.loadSize
-
                 return try {
-                    val response = movieAPIDataSource.fetchNowPlayingMovies(offset)
+
+                    val position = params.key ?: 1
+                    val response = movieAPIDataSource.fetchNowPlayingMovies(position)
+
                     if (response is UseCaseResult.Success) {
                         LoadResult.Page(
                             data = response.data.results,
-                            prevKey = if (offset == 0) null else offset - limit,
-                            nextKey = offset + limit
+                            prevKey = if (position == 1) null else (position - 1),
+                            nextKey = if (position == response.data.total_pages) null else (position + 1)
                         )
                     } else {
                         LoadResult.Error(Exception("Failed to fetch Movie List"))
@@ -31,7 +30,10 @@ class MoviePagingRepository(private val movieAPIDataSource: MovieAPIDataSource) 
             }
 
             override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
-                TODO("Not yet implemented")
+                return state.anchorPosition?.let {
+                    state.closestPageToPosition(it)?.prevKey?.plus(1)
+                        ?: state.closestPageToPosition(it)?.nextKey?.minus(1)
+                }
             }
         }
     }
