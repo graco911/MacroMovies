@@ -23,7 +23,14 @@ class LoginActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
 
+
+
+
         binding.apply {
+
+            editTextTextEmailAddress.append("caco572@gmail.com")
+            editTextTextPassword.append("carlos123")
+
             loginButton.setOnClickListener {
                 viewModel.setEmail(editTextTextEmailAddress.text.toString())
                 viewModel.setPass(editTextTextPassword.text.toString())
