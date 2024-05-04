@@ -4,6 +4,7 @@ plugins {
     id("kotlin-android")
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("com.google.gms.google-services")
 }
 
 android {
@@ -42,6 +43,8 @@ dependencies {
     implementation(libs.material)
     implementation(libs.androidx.room.common)
     implementation(project(":data"))
+    implementation(libs.firebase.auth.ktx)
+    implementation(libs.firebase.auth)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
