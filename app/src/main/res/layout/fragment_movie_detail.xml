@@ -109,7 +109,6 @@
                 android:layout_below="@id/textTitle"
                 android:layout_toRightOf="@+id/cardView"
                 android:text="Imaginado." />
-
         </RelativeLayout>
 
     </androidx.core.widget.NestedScrollView>

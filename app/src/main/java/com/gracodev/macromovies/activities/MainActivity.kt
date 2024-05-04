@@ -13,6 +13,8 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import com.gracodev.macromovies.R
 import com.gracodev.macromovies.databinding.ActivityMainBinding
+import com.gracodev.macromovies.utils.alert
+import com.gracodev.macromovies.utils.neutralButton
 
 class MainActivity : AppCompatActivity() {
 
@@ -39,6 +41,16 @@ class MainActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+
+        alert {
+            setTitle(getString(R.string.main_activity_dialog_title_text))
+            setMessage(
+                getString(R.string.login_success_text)
+            )
+            neutralButton(getString(R.string.main_activity_dialog_accept_button_text)) {
+                it.dismiss()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
