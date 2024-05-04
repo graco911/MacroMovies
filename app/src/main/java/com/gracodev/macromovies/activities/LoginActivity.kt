@@ -93,6 +93,7 @@ class LoginActivity : AppCompatActivity() {
 
                 is UIStates.Success -> {
                     val intent = Intent(applicationContext, MainActivity::class.java)
+                    finish()
                     startActivity(intent)
                 }
             }
