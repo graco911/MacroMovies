@@ -1,4 +1,4 @@
-# PostKeeper
+# MacroMovies
 MacroMovies es una aplicación móvil creada para una prueba técnica. En este README, se mencionarán las características de la aplicación desde un punto de vista técnico.
 
 ## Introducción
